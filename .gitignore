@@ -1,0 +1,3 @@
+# Never upload the config file (have keys) and the internal dir
+internal-files/*
+config.json

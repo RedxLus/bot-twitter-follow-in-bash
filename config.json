@@ -1,0 +1,34 @@
+{
+  "your_authentication": {
+    "your_username": "HERE",
+    "CLIENT_ID": "HERE",
+    "API_KEY": "HERE",
+    "API_SECRET_KEY": "HERE",
+    "TK_POSTMAN_ACCESS": "HERE",
+    "TK_POSTMAN_REFRESH": "HERE"
+  },
+  "hashtags": [
+    "cocina",
+    "cocina-saludable"
+  ],
+  "copy_users": [
+    "danigarcia_ca",
+    "PacoRoncero"
+  ],
+  "___coment_language___": "Write es (Spanish) or en (English) just for the menu of the script",
+  "language": "en",
+  "___coment_limit_search_from_user___": "Value need to be between 5 and 100",
+  "limit_search_from_user": 5,
+  "___coment_limit_search_from_hashtag___": "Value need to be between 10 and 100",
+  "limit_search_from_hashtag": 10,
+  "___coment_limit_follow_per_day___": "Today is 400",
+  "limit_follow_per_day": 390,
+  "___coment_limit_unfollow_per_day___": "Today is 500",
+  "limit_unfollow_per_day": 490,
+  "___coment_limit_like_per_day___": "Today is 1000",
+  "limit_like_per_day": 950,
+  "whitelist_users": [
+    "Dabizdiverxo",
+    "CanRocaCeller"
+  ]
+}
