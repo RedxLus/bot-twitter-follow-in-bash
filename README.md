@@ -86,3 +86,21 @@ To configure this bot. Change the parameters of the config.json file.
 Just run:
 
 ``bash twitter-bot.sh``
+
+Have English menu:
+
+![image](https://user-images.githubusercontent.com/15265490/220546238-8a9fca98-ccce-4e85-8dba-b4d4ff79d58d.png)
+
+And Spanish menu:
+
+![image](https://user-images.githubusercontent.com/15265490/220546306-60ba4f19-726d-46b5-804d-24b38881a7b2.png)
+
+You can change the language by changing the language variable in config.json. Currently just English and Spanish supported. But feel free to MR and update.
+
+## FAQ
+
+### Limit of API?
+
+The script read the header and detect when the API have a limit and will auto refresh every minute until can continue.
+
+![image](https://user-images.githubusercontent.com/15265490/220545805-405207eb-22e8-4383-9ea6-9412c68e152b.png)
