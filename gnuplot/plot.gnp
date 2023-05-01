@@ -1,0 +1,25 @@
+set terminal pngcairo
+set output "graph.png"
+
+# Defines the line styles
+set style line 1 lc rgb "#00d300" pt 9 ps 0.5 lt 1 lw 2
+set style line 2 lc rgb "#dd181f" pt 5 ps 0.5 lt 1 lw 2
+set style line 3 lc rgb "#0060ad" pt 7 ps 0.5 lt 1 lw 2
+
+# Date format in the first column
+set xdata time
+set timefmt "%Y-%m-%d"
+set format x "%m/%d"
+
+# Chart title, x and y axis labels
+set title "Social Media Tracking"
+set xlabel "Date"
+set ylabel "Amount"
+
+# Función para leer los datos del archivo JSON
+read_json(file) = system(sprintf("jq -r '.[] | [.today_date, .follows_today, .unfollows_today, .like_today] | @tsv' %s", file))
+
+# Graficar los datos
+plot '<echo "'.(read_json("data.json")).'"' using 1:2 with linespoints ls 1 title 'Follow', \
+     '' using 1:3 with linespoints ls 2 title 'Unfollow', \
+     '' using 1:4 with linespoints ls 3 title 'Like'

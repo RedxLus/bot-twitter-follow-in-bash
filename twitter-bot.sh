@@ -15,6 +15,8 @@ NAME_FILE_following="$DIR_internal/my_following.txt"
 NAME_FILE_non_follow_back="$DIR_internal/non_follow_back.txt"
 NAME_FILE_unfollow_non_follow_back="$DIR_internal/already_unfollow_anytime.txt"
 NAME_FILE_like_id="$DIR_internal/liked_users.txt"
+DIR_plot="gnuplot"
+NAME_FILE_plot_data="$DIR_plot/data.json"
 
 # TOKENS
 USERNAME=$(jq .your_authentication.your_username $NAME_FILE_config | tr -d '"')
@@ -395,6 +397,14 @@ unfollow_non_follow_back () {
   rm $NAME_FILE_H
 }
 
+# Generate plot using internal.config info of actions
+generate_plot () {
+  jq -s '.[0] + [.[1]]' $NAME_FILE_plot_data $NAME_FILE_internal_config > $NAME_FILE_tmp && mv $NAME_FILE_tmp $NAME_FILE_plot_data
+  jq 'reverse | unique_by(.today_date) | group_by(.today_date) | map(max_by(.exec_hour))' $NAME_FILE_plot_data > $NAME_FILE_tmp && mv $NAME_FILE_tmp $NAME_FILE_plot_data
+
+  cd ./$DIR_plot && gnuplot plot.gnp && cd .. && echo "Generated the chart."
+}
+
 # Not finish
 like_id () {
   local NAME_FILE_TAKE=$1
@@ -436,6 +446,7 @@ like_non_follow_back () {
 
 start () {
   clear
+  generate_plot
   update_internal_config
   update_refesh_token
   
@@ -466,6 +477,7 @@ es () {
     echo "7. Obtener una lista de tweets recientes de los usuarios definidos en $NAME_FILE_config"
     echo "8. Obtener una lista de users que han dado like a los tweets. Usa el archivo del punto 6" 
     echo "9. Follow todos los ID de $NAME_FILE_save_id_users_from_tweets"
+    echo "10. Generar plot. Ejecute y verifique que $DIR_plot tenga el graph.png"
     echo ""
     echo ""
     echo "99. Salir del script. Exit." 
@@ -496,6 +508,7 @@ en () {
     echo "7. Get a list of users who have liked the tweets. Use the file from point 1"
     echo "8. Get a list of users who have liked the tweets. Use the file from point 2"
     echo "9. Follow all ID from $NAME_FILE_save_id_users_from_tweets"
+    echo "10. Generate plot. Run and check $DIR_plot have the graph.png"
     echo ""
     echo ""
     echo "99. Exit script. Exit."
@@ -511,6 +524,8 @@ case_versions (){
   1)
     echo ""
     unfollow_non_follow_back $NAME_FILE_non_follow_back
+    generate_plot
+    sleep 5
   ;;
   2)
     echo ""
@@ -519,6 +534,7 @@ case_versions (){
     save_id_users_from_tweets $NAME_FILE_save_id_tweets_from_hashtags
     sleep 5
     follow_id_bulk $NAME_FILE_save_id_users_from_tweets
+    generate_plot
     sleep 5
   ;;
   3)
@@ -528,11 +544,14 @@ case_versions (){
     save_id_users_from_tweets $NAME_FILE_save_id_tweets_from_user
     sleep 5
     follow_id_bulk $NAME_FILE_save_id_users_from_tweets
+    generate_plot
     sleep 5
   ;;
   4)
     echo ""
     like_non_follow_back
+    generate_plot
+    sleep 5
   ;;
   5)
     echo ""
@@ -547,7 +566,7 @@ case_versions (){
   7)
     echo ""
     save_id_tweets_from_user from_config_file
-    sleep 3
+    sleep 5
   ;;
   8)
     echo ""
@@ -557,6 +576,12 @@ case_versions (){
   9)
     echo ""
     follow_id_bulk $NAME_FILE_save_id_users_from_tweets
+    generate_plot
+    sleep 5
+  ;;
+  10)
+    echo ""
+    generate_plot
     sleep 5
   ;;
   99)
@@ -564,7 +589,7 @@ case_versions (){
   ;;
   *)
   echo "Unrecognized number."
-  sleep 1
+  sleep 2
   ;;
   esac
 }
