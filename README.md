@@ -10,10 +10,20 @@ Have working currently:
 
 To do (next versions):
 * Detect commands need and install or ask to install
-* follow/unfollow/like chart (im testing gnuplot for this)
 * Save unfollows to not follow again (need touch the logic of the functions)
 * Get the token without need postman (only first config, later it auto update the token)
 * Whitelist_users to ignore when follow or unfollow
+
+## Table of content of this readme
+- [Bot twitter follow in bash](#bot-twitter-follow-in-bash)
+  * [0. Access to developer dashboard in Twitter](#0-access-to-developer-dashboard-in-twitter)
+  * [1. Configure the project](#1-configure-the-project)
+  * [2. Configure postman](#2-configure-postman)
+  * [3. Configure the bot](#3-configure-the-bot)
+  * [4. Use the bot](#4-use-the-bot)
+  * [FAQ](#faq)
+    + [Limit of API?](#limit-of-api-)
+    + [Auto graph chart all actions](#auto-graph-chart-all-actions)
 
 ## 0. Access to developer dashboard in Twitter
 
@@ -104,3 +114,11 @@ You can change the language by changing the language variable in config.json. Cu
 The script read the header and detect when the API have a limit and will auto refresh every minute until can continue.
 
 ![image](https://user-images.githubusercontent.com/15265490/220545805-405207eb-22e8-4383-9ea6-9412c68e152b.png)
+
+### Auto graph chart all actions
+
+The script will generate a graph of all actions: Follow, Unfollow and Likes.
+
+You can check in the dir gnuplot.
+
+![graph](https://user-images.githubusercontent.com/15265490/235502987-6753baab-059a-4474-970e-dc8a88208c46.png)
