@@ -258,6 +258,7 @@ following_download () {
 # Get latest post id of important user in config or any user
 # EXAMPLE 1: save_id_tweets_from_user from_config_file
 # EXAMPLE 2: save_id_tweets_from_user from_general_user NekoJitaBlog
+# EXAMPLE 3: save_id_tweets_from_user from_general_user 44724559
 save_id_tweets_from_user () {
   local NAME_FILE="$NAME_FILE_save_id_tweets_from_user"
   local LIMIT_PER_USER=$(jq .limit_search_from_user $NAME_FILE_config)
@@ -273,7 +274,13 @@ save_id_tweets_from_user () {
   for message in "${USER_TO_COPY[@]}"; do
       local USER=$(echo $message | tr -d '"')
       echo "Select $USER ..."
-      local USER_ID=$(get_id_from_user $USER)
+      if [[ $USER =~ ^[0-9]+$ ]]; then
+          # If is all numbers that means is ID so not need do any.
+          local USER_ID=$(echo $USER)
+      else
+          # Otherway need to convert username to ID.
+          local USER_ID=$(get_id_from_user $USER)
+      fi
       local API="users/$USER_ID/tweets?max_results=$LIMIT_PER_USER&exclude=retweets"
       local CURL=$(curl -s "https://api.twitter.com/2/$API" \
                         -H "Authorization: Bearer $BEARER_TOKEN")
