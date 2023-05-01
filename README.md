@@ -1,6 +1,6 @@
 # Bot twitter follow in bash
 
-This bot is current in **v0.4** so is in **beta**. May have some unexpected errors. As always, use at your own risk.
+This bot is current in **v0.5** so is in **beta**. May have some unexpected errors. As always, use at your own risk.
 
 This bot is build using **Twitter API V2** only. You can check the code, is very simple. Works with functions and curl api calls directly. It does not go through any external server or need other dependencies. It can be run on any computer or server running Linux or Mac.
 
@@ -10,7 +10,7 @@ Have working currently:
 
 To do (next versions):
 * Detect commands need and install or ask to install
-* Save unfollows to not follow again (need touch the logic of the functions)
+* Save unfollows to not follow again (need change the logic of the functions)
 * Get the token without need postman (only first config, later it auto update the token)
 * Whitelist_users to ignore when follow or unfollow
 
